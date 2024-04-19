@@ -1,37 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
 *{
     margin: 0;
     padding: 0;
 }
 
-/* colours : #2294f2 // #aad6fa // #f5fbff*/
+/* colours : #2294f2-blue // #aad6fa // #f5fbff #141414-black #68baf2-faintblue #fffce8-wheat #ffffff-white*/ 
 
-img{
-    display: block;
-    margin: auto;
+body{
+    background-color:#2294f2;
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+}
+
+.flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 0px;
+}
+
+.bg{
+    background-color: white;
+}
+.flex-row-head{
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    column-gap: 20rem;
+}
+nav{
+font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-size: larger;
+  font-style: normal;
+}
+nav img{
     width: 50px;
 }
 
-body{
-    background-color: #f5fbff;
+.UI img{
+    width: 600px;
+}
+
+.big-cont{
+/* background-color: #2294f2; */
+width: 70%;
+height: 100%;
+margin: 0px;
 }
 
 .container{
     background-color:#aad6fa;
-    max-width: 955px;
+    width: 90%;
+    height: 450px;
     margin: auto;
-    height: 60vh;
-    padding: 30px;
     overflow-y: auto;
+    border-radius: 10px;
     margin-bottom: 20px;
 }
 
 .message{
-    background-color: wheat;
-    width: 24%;
+    background-color: #68baf2;
+    width: 30%;
     padding: 10px;
     margin: 17px 12px;
-    border: 2px solid black;
-    border-radius: 5px;
+    border-radius: 20px;
 }
 
 .left{
@@ -48,15 +86,32 @@ clear: both;
     display: block;
     margin: auto;
     text-align: center;
+    font-family: "Montserrat", sans-serif;
 }
 
 #messageInp{
+    height: 40px;
+    width: 75%;
+    background-color:#fffce8;
+    border: none;
     border-radius: 10px;
-    height: 30px;
-    width: 60%;
+    margin-right: 5px;
+    font-family: "Montserrat", sans-serif;
 }
 
 .btn{
 cursor: pointer;
-height: 30px;
+height: 40px;
+background-color: whitesmoke;
+color:#2294f2;
+font-family: "Montserrat", sans-serif;
+font-weight: 400;
+width: 100px;
+border-radius: 10px;
+border: none;
+}
+
+.btn:hover{
+    background-color: darkblue;
+color: whitesmoke;
 }
