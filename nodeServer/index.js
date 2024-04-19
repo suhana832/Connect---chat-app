@@ -1,3 +1,4 @@
+
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
@@ -16,7 +17,7 @@ const io = new Server(server, {
 const users = {};
 // Event listener for incoming connections
 io.on('connection', socket => {
-    
+    // If any new user joins, let other users connected to the server should know.
     socket.on('new-user-joined', name => {
         if (name) {
         console.log("New user" , name);
@@ -24,10 +25,17 @@ io.on('connection', socket => {
         socket.broadcast.emit('user-joined', name);
     }
     });
+    // If someone send a message, gos to everyone on the server.
     socket.on('send', message=> {
        socket.broadcast.emit('receive',{message: message, name:users[socket.id]})
     });
 
+    // If someone leaves the chat, everybody knows about it.
+    socket.on('disconnect', message=> {
+      socket.broadcast.emit('leave', users[socket.id]);
+      delete users[socket.id];
+   });
+   
 });
 
 // Start the server
