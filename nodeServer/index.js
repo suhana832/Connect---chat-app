@@ -1,45 +1,49 @@
-
-const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
+const express = require("express");
+const http = require("http");
+const { Server } = require("socket.io");
+const path = require("path");
 
 const app = express();
 const server = http.createServer(app);
 
-// Create a Socket.IO server instance with CORS configuration
+// ✅ Serve frontend files
+app.use(express.static(path.join(__dirname, "public")));
+
+// ✅ Socket.IO with deployment-safe CORS
 const io = new Server(server, {
   cors: {
-    origin: "http://127.0.0.1:5500", // Allow requests from this origin
-    methods: ["GET", "POST"] // Allow only specified methods
+    origin: "*",   // allow all origins (safe for demo projects)
+    methods: ["GET", "POST"]
   }
 });
 
 const users = {};
-// Event listener for incoming connections
-io.on('connection', socket => {
-    // If any new user joins, let other users connected to the server should know.
-    socket.on('new-user-joined', name => {
-        if (name) {
-        console.log("New user" , name);
-        users[socket.id] = name;
-        socket.broadcast.emit('user-joined', name);
-    }
-    });
-    // If someone send a message, gos to everyone on the server.
-    socket.on('send', message=> {
-       socket.broadcast.emit('receive',{message: message, name:users[socket.id]})
-    });
 
-    // If someone leaves the chat, everybody knows about it.
-    socket.on('disconnect', message=> {
-      socket.broadcast.emit('leave', users[socket.id]);
-      delete users[socket.id];
-   });
-   
+io.on("connection", (socket) => {
+  console.log("New socket connected:", socket.id);
+
+  socket.on("new-user-joined", (name) => {
+    if (name) {
+      users[socket.id] = name;
+      socket.broadcast.emit("user-joined", name);
+    }
+  });
+
+  socket.on("send", (message) => {
+    socket.broadcast.emit("receive", {
+      message: message,
+      name: users[socket.id]
+    });
+  });
+
+  socket.on("disconnect", () => {
+    socket.broadcast.emit("leave", users[socket.id]);
+    delete users[socket.id];
+  });
 });
 
-// Start the server
+// ✅ Correct PORT handling
 const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
-  console.log('Server is running on port ${PORT}');
+  console.log(`Server is running on port ${PORT}`);
 });
