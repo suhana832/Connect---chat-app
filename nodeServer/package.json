@@ -1,10 +1,12 @@
 {
-  "name": "nodeserver",
+  "name": "connect-chat-app",
   "version": "1.0.0",
   "description": "This is a node server for connect chat app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Suhana",
   "license": "ISC",
@@ -17,3 +19,5 @@
     "nodemon": "^3.1.0"
   }
 }
+
+
